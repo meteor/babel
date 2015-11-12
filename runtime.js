@@ -1,7 +1,9 @@
 // Note that requiring this module installs global.babelHelpers.
-require("babel-core/external-helpers");
+// require("babel-runtime");
 
-var runtime = module.exports = babelHelpers;
+// var runtime = module.exports = babelHelpers;
+
+var runtime = exports;
 
 runtime.sanitizeForInObject = function (obj) {
   if (Array.isArray(obj)) {
