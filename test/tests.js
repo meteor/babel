@@ -285,4 +285,23 @@ val = "zxcv";`;
       await 15
     );
   });
+
+  it("decorators", () => {
+    let called = false;
+
+    function foo() {
+      called = true;
+    }
+
+    class A {
+      @foo
+      bar(x) {
+        return x + 1;
+      }
+    }
+
+    new A().bar();
+
+    assert.strictEqual(called, true);
+  });
 });
