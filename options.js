@@ -8,7 +8,7 @@ exports.getDefaults = function getDefaults(features) {
     // classes, computed properties, modules, for-of, and template literals.
     // Basically all the transformers that support "loose".
     // http://babeljs.io/docs/usage/loose/
-    presets: [require("babel-preset-meteor")],
+    presets: [],  // meteor preset must now be specified in .babelrc
     plugins: []
   };
 
