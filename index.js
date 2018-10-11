@@ -112,18 +112,21 @@ function compile(source, options) {
     }
   }
 
+  const generateSourceMaps = options.sourceMap !== false
+    && options.sourceMaps !== false;
+
   if (plugins && plugins.length > 0) {
     const presetOfPlugins = { plugins };
     transform(
       [presetOfPlugins],
       // If there were no options.presets, then this is the final
       // transform call, so make sure we generate a sourceMap.
-      ! presets
+      ! presets && generateSourceMaps
     );
   }
 
   if (presets) {
-    transform(presets, true);
+    transform(presets, generateSourceMaps);
   }
 
   return result;
