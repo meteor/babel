@@ -288,8 +288,36 @@ describe("meteor-babel", () => {
     const tsTest = new Test("asdf");
     assert.strictEqual(tsTest.property, 1234);
     assert.strictEqual(tsTest.value, "asdf");
+    assert.strictEqual(typeof tsTest.result, "number");
     const jsTest = new (class { foo = 42 });
     assert.strictEqual(jsTest.foo, 42);
+  });
+
+  it("can compile TypeScript syntax", () => {
+    const options = meteorBabel.getDefaultOptions({
+      typescript: true,
+    });
+
+    assert.strictEqual(options.typescript, true);
+
+    const result = meteorBabel.compile([
+      "export namespace Test {",
+      "  export const enabled = true;",
+      "}",
+    ].join("\n"), options);
+
+    assert.strictEqual(result.code, [
+      "module.export({",
+      "  Test: function () {",
+      "    return Test;",
+      "  }",
+      "});",
+      "var Test;",
+      "",
+      "(function (Test) {",
+      "  Test.enabled = true;",
+      "})(Test || module.runSetters(Test = {}));",
+    ].join("\n"));
   });
 });
 
