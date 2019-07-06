@@ -319,6 +319,16 @@ describe("meteor-babel", () => {
       "})(Test || module.runSetters(Test = {}));",
     ].join("\n"));
   });
+
+  it("can handle JSX syntax in .tsx files", () => {
+    const { Component } = require("./react.tsx");
+    assert.strictEqual(typeof Component, "function");
+    assert.strictEqual(String(Component), [
+      'function Component() {',
+      '  return React.createElement("div", null, "oyez");',
+      '}',
+    ].join("\n"));
+  });
 });
 
 describe("Babel", function() {
